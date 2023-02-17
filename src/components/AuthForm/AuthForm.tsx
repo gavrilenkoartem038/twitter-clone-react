@@ -8,22 +8,17 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { IFormFields } from './Form.types';
+import { IFormFields, IFormProps } from './Form.types';
 import FormFieldsWrapper from './FormFieldsWrapper';
-import { useLoginMutation } from '../../redux/twitterApi';
 
 const theme = createTheme();
 
-export default function AuthForm() {
+export default function AuthForm({formRequest}: IFormProps) {
   const methods = useForm();
   const { handleSubmit, formState: { errors } } = methods;
 
-  const [login, loginRes] = useLoginMutation()
-
   const onSubmit: SubmitHandler<IFormFields> = async (data) => { 
-    console.log(data)
-    const response = await login({username: data.login, password: data.password});
-    console.log(response)
+    formRequest({username: data.username, password: data.password});
   };
 
   return (

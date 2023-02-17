@@ -1,6 +1,10 @@
 export interface IFormFields {
-  login?: string;
+  username?: string;
   password?: string;
   firstName?: string;
   lastName?: string;
+}
+
+export interface IFormProps {
+  formRequest: (data: IFormFields) => Promise<void>
 }

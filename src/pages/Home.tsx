@@ -1,7 +1,13 @@
+import AddTweetForm from "../components/AddTweetForm/AddTweetForm";
+import TweetList from "../components/TweetList/TweetList";
+
 const Home = () => {
-  return ( 
-    <div>this is HomePage</div>
+  return (
+    <>
+      <AddTweetForm />
+      <TweetList />
+    </>
   );
 }
- 
+
 export default Home;

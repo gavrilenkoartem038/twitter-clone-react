@@ -5,7 +5,7 @@ const FormFieldsWrapper = () => {
   const initializeProps = useFieldPropsInitializer();
   return (
     <>
-      <FormInput {...initializeProps('login')}></FormInput>
+      <FormInput {...initializeProps('username')}></FormInput>
       <FormInput {...initializeProps('password')}></FormInput>
     </>
   );

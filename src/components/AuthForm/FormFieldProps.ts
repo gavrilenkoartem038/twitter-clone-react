@@ -1,11 +1,11 @@
 import { FieldErrorsImpl } from "react-hook-form";
 
 export const FormFieldProps = {
-  login: {
-    error: (errors: Partial<FieldErrorsImpl>) => errors.login,
+  username: {
+    error: (errors: Partial<FieldErrorsImpl>) => errors.username,
     inputProps: {
       type: 'text',
-      name: 'login',
+      name: 'username',
       label: 'Username',
     },
     inputRules: {
