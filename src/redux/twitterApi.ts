@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { ITweet } from '../components/Tweet/Tweet.types';
+import { setToken } from '../store/reducers/commonSlice';
 import { IUser } from '../types/types';
 import getHeaders from '../utils/tokenUtils';
 
@@ -31,7 +32,8 @@ export const  twitterApi = createApi({
         try {
           const { data } = await queryFulfilled;
           localStorage.setItem('app_token', data.token);
-          localStorage.setItem('user_id', data.userId)
+          localStorage.setItem('user_id', data.userId);
+          dispatch(setToken(data.token))
         } catch (err) {
           console.log(err)
         }
@@ -47,7 +49,6 @@ export const  twitterApi = createApi({
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log(data);
         } catch (err) {
           console.log(err)
         }

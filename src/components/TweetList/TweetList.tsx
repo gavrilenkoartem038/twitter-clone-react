@@ -6,7 +6,6 @@ import Tweet from "../Tweet/Tweet";
 const TweetList = () => {
 
   const { data } = useGetAllTweetsQuery();
-  console.log(data)
 
   return (
     <List>

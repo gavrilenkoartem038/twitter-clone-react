@@ -16,7 +16,6 @@ const AddTweetForm = () => {
     const formData = new FormData();
     formData.append('text', text);
     formData.append('file', file);
-    console.log(file![0])
     await createTweet(formData);
   }
 
