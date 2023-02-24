@@ -55,7 +55,22 @@ export const  twitterApi = createApi({
       },
       invalidatesTags: ['Tweets'],
     }),
+
+    deleteTweet: builder.mutation({
+      query: (id: string) => ({
+        url: `tweet/${id}`,
+        method: 'DELETE',
+      }),
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+        } catch (err) {
+          console.log(err)
+        }
+      },
+      invalidatesTags: ['Tweets'],
+    }),
   })
 })
 
-export const { useGetMeQuery, useGetAllTweetsQuery, useLoginMutation, useCreateTweetMutation } = twitterApi;
+export const { useGetMeQuery, useGetAllTweetsQuery, useLoginMutation, useCreateTweetMutation, useDeleteTweetMutation } = twitterApi;

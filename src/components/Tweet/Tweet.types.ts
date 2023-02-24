@@ -10,6 +10,6 @@ export interface ITweet {
   },
   text: string;
   image?: string;
-  date: Date;
+  date: string;
   _v: number
 }
