@@ -9,21 +9,27 @@ import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { getTweetTime } from "../../utils/utils";
 import { useState } from "react";
 import { Menu, MenuItem } from "@mui/material";
-import { useDeleteTweetMutation } from "../../redux/twitterApi";
+import { useAddLikeMutation, useDeleteTweetMutation, useRemoveLikeMutation } from "../../redux/twitterApi";
 
 interface Props {
-  tweet: ITweet
+  tweet: ITweet;
+  isLiked: boolean
 }
 
-const Tweet = ({ tweet }: Props) => {
+const Tweet = ({ tweet, isLiked }: Props) => {
   const [deleteTweet, response] = useDeleteTweetMutation();
+  const [addLike] = useAddLikeMutation();
+  const [removeLike] = useRemoveLikeMutation();
 
-  const { user, date, text, image, _id: id } = tweet;
+  const { user, date, text, likes, image, _id: id } = tweet;
+
+  const [activeLike, setActiveLike] = useState(isLiked);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -36,6 +42,16 @@ const Tweet = ({ tweet }: Props) => {
 
   const handleDelete = () => {
     deleteTweet(id);
+  }
+
+  const toggleLike = async () => {
+    const userId = localStorage.getItem('user_id') as string;
+    console.log(likes, userId);
+    if (likes.find((user) => user._id === userId)) {
+      await removeLike(id);
+    } else {
+      await addLike(id);
+    }
   }
 
   return (
@@ -81,11 +97,16 @@ const Tweet = ({ tweet }: Props) => {
         component="img"
         image={image}
         alt="image"
-        sx={{ width: 'auto', margin: '0 auto' }}
+        sx={{ width: 'auto', margin: '0 auto', maxWidth: '100%', maxHeight: '500px' }}
       />}
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+        <IconButton aria-label="add to favorites" onClick={toggleLike}>
+          {isLiked ?
+            <FavoriteIcon htmlColor="#f44336" />
+            :
+            <FavoriteBorderIcon />
+          }
+          <div>{likes.length}</div>
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />

@@ -15,7 +15,8 @@ const AddTweetForm = () => {
   const onSubmit: SubmitHandler<FieldValues> = async ({text, file}) => {
     const formData = new FormData();
     formData.append('text', text);
-    formData.append('file', file);
+    formData.append('file', file[0]);
+    console.log(file[0])
     await createTweet(formData);
   }
 

@@ -1,15 +1,17 @@
 export interface ITweet {
   tweets: string[];
-  likedTweets: string[];
+  likes: User[];
   _id: string;
-  user: {
-    id: string;
-    username: string;
-    firstName: string;
-    lastName: string;
-  },
+  user: User;
   text: string;
   image?: string;
   date: string;
   _v: number
+}
+
+interface User {
+  _id: string;
+  username: string;
+  firstName: string;
+  lastName: string;
 }

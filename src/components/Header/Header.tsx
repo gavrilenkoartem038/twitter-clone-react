@@ -31,7 +31,7 @@ export default function Header({children}: Props) {
       <Drawer
         variant="permanent"
         sx={{
-          width: {sm: drawerWidth, xs : theme.spacing(8)},
+          width: {sm: drawerWidth, xs : theme.spacing(7)},
           flexShrink: 0,
           [`& .MuiDrawer-paper`]: { width: {sm: drawerWidth, xs : theme.spacing(7)}, boxSizing: 'border-box', left: 'auto' },
         }}
@@ -39,7 +39,7 @@ export default function Header({children}: Props) {
         <Toolbar />
         <NavList />
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, maxWidth: "xl" }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 2, maxWidth: "xl" }}>
         <Toolbar />
         {children}
       </Box>

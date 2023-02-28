@@ -4,9 +4,9 @@ import { setToken } from '../store/reducers/commonSlice';
 import { IUser } from '../types/types';
 import getHeaders from '../utils/tokenUtils';
 
-export const  twitterApi = createApi({
+export const twitterApi = createApi({
   reducerPath: 'twitterApi',
-  baseQuery: fetchBaseQuery({ 
+  baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:4000/api',
     prepareHeaders: (headers: Headers) => getHeaders(headers),
   }),
@@ -17,7 +17,7 @@ export const  twitterApi = createApi({
       query: () => '/profile/me'
     }),
 
-    getAllTweets: builder.query<{tweets: ITweet[]}, void>({
+    getAllTweets: builder.query<{ tweets: ITweet[] }, void>({
       query: () => '/tweet/all',
       providesTags: ['Tweets'],
     }),
@@ -70,7 +70,36 @@ export const  twitterApi = createApi({
       },
       invalidatesTags: ['Tweets'],
     }),
+
+    addLike: builder.mutation({
+      query: (id: string) => ({
+        url: `tweet/${id}/like`,
+        method: 'POST',
+      }),
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+        } catch (err) {
+          console.log(err)
+        }
+      },
+      invalidatesTags: ['Tweets'],
+    }),
+    removeLike: builder.mutation({
+      query: (id: string) => ({
+        url: `tweet/${id}/like`,
+        method: 'DELETE',
+      }),
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+        } catch (err) {
+          console.log(err)
+        }
+      },
+      invalidatesTags: ['Tweets'],
+    }),
   })
 })
 
-export const { useGetMeQuery, useGetAllTweetsQuery, useLoginMutation, useCreateTweetMutation, useDeleteTweetMutation } = twitterApi;
+export const { useGetMeQuery, useGetAllTweetsQuery, useLoginMutation, useCreateTweetMutation, useDeleteTweetMutation, useAddLikeMutation, useRemoveLikeMutation } = twitterApi;
